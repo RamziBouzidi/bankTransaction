@@ -32,15 +32,24 @@ class StartPage(customtkinter.CTkFrame):
     def __init__(self, master, controller):
         super().__init__(master)
         self.grid_columnconfigure(0,weight=1)
+        self.grid_columnconfigure(1,weight=1)
+        self.grid_rowconfigure(3,weight=0)
+        self.grid_rowconfigure(2,weight=1)
+        self.grid_rowconfigure(1,weight=1)
+        self.grid_rowconfigure(0,weight=1)
+        
         button = customtkinter.CTkButton(self, text="Login/Create",
                                            command=lambda: controller.show_frame(PageOne))
-        button.grid(row=3, column=0, padx=20, pady=20, sticky="ew",columnspan=3)
+        button.grid(row=3, column=0, padx=20, pady=20, sticky="sew",columnspan=3)
         label = customtkinter.CTkLabel(self, text="Name")
         label.grid(row=0,column = 0 ,pady=10, padx=10,sticky="w")
+        name = customtkinter.CTkTextbox(self,height=5, corner_radius=10)
+        name.grid(row=0,column=1,sticky="sew")
         label2 = customtkinter.CTkLabel(self,text="FullName")
-        label2.grid(row=1,column = 0 ,sticky="w")
+        label2.grid(row=1,column = 0 ,pady=10, padx=10,sticky="w")
         label3 = customtkinter.CTkLabel(self, text="email")
-        label3.grid(row=2,column = 0 ,sticky="w")
+        label3.grid(row=2,column = 0 ,pady=10, padx=10,sticky="w")
+
 
         
        
