@@ -29,10 +29,12 @@ class App(customtkinter.CTk):
             rezult = checkUzer(actualName,actualFullName)
             if rezult:
                 frame = self.frames[Zuccezz]
-                frame.mezzage = "Tranzaction Method \n "          
+                frame.ztatuz.grid_remove()
+                frame.ztatuz.configure(text="Tranzaction Method \n "  )        
                 frame.tkraise()
             else:
                 frame = self.frames[Failed]
+                frame.textt.configure(text="Uzer doeznt exizt pleaze regizter")
                 frame.tkraise()
         elif name == "create":
             actualName = frame.name.get("0.0", "end")
@@ -41,18 +43,18 @@ class App(customtkinter.CTk):
             rezult = createUser(actualName,actualFullName,actualEmail,0)
             if rezult == True:
                 frame = self.frames[Zuccezz]
-                self.button.grid_remove()
-                self.label1.grid_remove()
-                self.depozit.grid_remove()
-                self.withdraw.grid_remove()
-                self.Loan.grid_remove()
-                self.label2.grid_remove()
-                self.label3.grid_remove()
-                frame.mezzage = "Uzer created zuccezzfully"
+                frame.button.grid_remove()
+                frame.label1.grid_remove()
+                frame.depozit.grid_remove()
+                frame.withdraw.grid_remove()
+                frame.Loan.grid_remove()
+                frame.label2.grid_remove()
+                frame.label3.grid_remove()
+                frame.ztatuz.configure(text="Uzer created zuccezzfully Pleaze exit to login")
                 frame.tkraise()
             else:
                 frame = self.frames[Failed]
-                frame.mezzage = "Failed to create a uzer"
+                frame.textt.configure(text="Failed to create a uzer")
 
                 frame.tkraise()
 
@@ -73,11 +75,11 @@ class StartPage(customtkinter.CTkFrame):
         self.grid_rowconfigure(1,weight=1)
         self.grid_rowconfigure(0,weight=1)
         
-        button = customtkinter.CTkButton(self, text="Login",
+        self.button = customtkinter.CTkButton(self, text="Login",
                                            command=lambda: controller.show_frame(StartPage,"PageOne"))
-        button.grid(row=3, column=0, padx=20, pady=20, sticky="sew",columnspan=3)
-        label = customtkinter.CTkLabel(self, text="Name")
-        label.grid(row=0,column = 0 ,pady=10, padx=10,sticky="w")
+        self.button.grid(row=3, column=0, padx=20, pady=20, sticky="sew",columnspan=3)
+        self.label = customtkinter.CTkLabel(self, text="Name")
+        self.label.grid(row=0,column = 0 ,pady=10, padx=10,sticky="w")
         self.name = customtkinter.CTkTextbox(self,height=5, corner_radius=10)
         self.name.grid(row=0,column=1,sticky="ew")
         self.fullname = customtkinter.CTkTextbox(self,height=5, corner_radius=10)
@@ -110,9 +112,9 @@ class Failed(customtkinter.CTkFrame):
         self.grid_rowconfigure(1,weight=0)
     
         super().__init__(master)
-        self.mezzage = ""
-        textt = customtkinter.CTkLabel(self,text=self.mezzage)
-        textt.grid(row=0,column=0,padx=20, pady=20, sticky="nsew")
+        
+        self.textt = customtkinter.CTkLabel(self,text="Error contact a ztaff")
+        self.textt.grid(row=0,column=0,padx=20, pady=20, sticky="nsew")
         button = customtkinter.CTkButton(self, text="Exit",
                                            command=lambda: controller.show_frame(StartPage,"main"))
         button.grid(row=1, column=0, padx=20, pady=20, sticky="sew",columnspan=3)
@@ -121,23 +123,25 @@ class Zuccezz(customtkinter.CTkFrame):
     def __init__(self, master, controller):
         super().__init__(master)
         self.grid_columnconfigure(0,weight=1)
-        self.grid_rowconfigure(0,weight=1)
-        self.grid_rowconfigure(1,weight=0)
+        self.grid_columnconfigure(1,weight=1)
+        self.grid_rowconfigure(3,weight=0)
+        self.grid_rowconfigure(2,weight=1)
+        self.grid_rowconfigure(1,weight=1)
+        self.grid_rowconfigure(4,weight=0)
     
         super().__init__(master)
-        self.mezzage = ""
         
         
-        ztatuz = customtkinter.CTkLabel(self,text= self.mezzage)
-        ztatuz.grid_remove(row=0,column=0,padx=20, pady=20, sticky="nsew")
+        self.ztatuz = customtkinter.CTkLabel(self,text="Error contact a ztaff")
+        self.ztatuz.grid(row=0,column=0,padx=20, pady=20, sticky="nsew")
         
         
 
 
 
-        button = customtkinter.CTkButton(self, text="Zubmit",
+        self.button = customtkinter.CTkButton(self, text="Zubmit",
                                            command=lambda: controller.show_frame(StartPage,"PageOne"))
-        button.grid(row=3, column=0, padx=20, pady=20, sticky="sew",columnspan=3)
+        self.button.grid(row=3, column=0, padx=20, pady=20, sticky="sew",columnspan=3)
         label1 = customtkinter.CTkLabel(self, text="Depozit")
         label1.grid(row=0,column = 0 ,pady=10, padx=10,sticky="w")
         self.depozit = customtkinter.CTkTextbox(self,height=5, corner_radius=10)
