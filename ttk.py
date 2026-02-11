@@ -44,25 +44,25 @@ class StartPage(customtkinter.CTkFrame):
         label = customtkinter.CTkLabel(self, text="Name")
         label.grid(row=0,column = 0 ,pady=10, padx=10,sticky="w")
         name = customtkinter.CTkTextbox(self,height=5, corner_radius=10)
-        name.grid(row=0,column=1,sticky="sew")
+        name.grid(row=0,column=1,sticky="ew")
+        fullname = customtkinter.CTkTextbox(self,height=5, corner_radius=10)
+        fullname.grid(row=1,column=1,sticky="ew")
+        email = customtkinter.CTkTextbox(self,height=5, corner_radius=10)
+        email.grid(row=2,column=1,sticky="ew")
         label2 = customtkinter.CTkLabel(self,text="FullName")
         label2.grid(row=1,column = 0 ,pady=10, padx=10,sticky="w")
         label3 = customtkinter.CTkLabel(self, text="email")
         label3.grid(row=2,column = 0 ,pady=10, padx=10,sticky="w")
 
 
-        
-       
-        
-
 class PageOne(customtkinter.CTkFrame):
     def __init__(self, master, controller):
         super().__init__(master)
-        label = customtkinter.CTkLabel(self, text="Page One")
-        label.pack(pady=10, padx=10)
+        label = customtkinter.CTkLabel(self, text="Choose a transaction method")
+        label.grid(pady=10, padx=10)
         button = customtkinter.CTkButton(self, text="Go to Start Page",
                                            command=lambda: controller.show_frame(StartPage))
-        button.pack()
+        button.grid()
 
 if __name__ == "__main__":
     app = App()
