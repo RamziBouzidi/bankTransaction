@@ -15,6 +15,7 @@ def createUser(name,fullname,email,money):
     )
     session.add(perzon)
     session.commit()
+    return True
     print(perzon)
 
 def modifyUzer(**kwargs):
