@@ -36,6 +36,20 @@ def modifyUzer(**kwargs):
     session.execute(updateMoney)
     session.commit()
     return finalmoney2
+   
+def getMoney(name,fullname,email):
+  with Session(engine) as session:
+    money = session.scalars(
+    select(Address.money)
+    .join(User, User.id == Address.user_id)
+    .where(User.name == name)
+    .where(User.fullname == fullname)
+    .where(Address.email_address == email)
+).all()
+    
+    return money
+
+
 
 def checkUzer(name,fullname):
   with Session(engine) as session:

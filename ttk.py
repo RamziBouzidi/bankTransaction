@@ -1,5 +1,5 @@
 import customtkinter
-from zervicezDb import checkUzer,createUser,modifyUzer
+from zervicezDb import checkUzer,createUser,modifyUzer,getMoney
 
 class App(customtkinter.CTk):
     def __init__(self):
@@ -26,16 +26,35 @@ class App(customtkinter.CTk):
             
             actualName = frame.name.get("0.0", "end")
             actualFullName = frame.fullname.get("0.0", "end")
+            actualEmail = frame.email.get("0.0", "end")
             rezult = checkUzer(actualName,actualFullName)
             if rezult:
                 frame = self.frames[Zuccezz]
                 frame.ztatuz.grid_remove()
-                frame.ztatuz.configure(text="Tranzaction Method \n "  )        
+                frame.ztatuz.configure(text="Tranzaction Method \n "  )
+                frame.mone.configure(text=getMoney(actualName,actualFullName,actualEmail))        
                 frame.tkraise()
             else:
                 frame = self.frames[Failed]
                 frame.textt.configure(text="Uzer doeznt exizt pleaze regizter")
                 frame.tkraise()
+
+        elif name == "Tranzaction":
+            actualName = frame.name.get("0.0", "end")
+            actualFullName = frame.fullname.get("0.0", "end")
+            actualEmail = frame.email.get("0.0", "end")
+            frame = self.frames[Zuccezz]
+            
+            actualMoney = int(frame.depozit.get("0.0", "end")) - int(frame.withdraw.get("0.0", "end"))
+            
+            
+
+            data = {"name":actualName,"fullname":actualFullName,"email_address":actualEmail,"money":actualMoney}
+            modifyUzer(**data)
+            frame.mone.configure(text=getMoney(actualName,actualFullName,actualEmail))
+            
+
+
         elif name == "create":
             actualName = frame.name.get("0.0", "end")
             actualFullName = frame.fullname.get("0.0", "end")
@@ -134,16 +153,19 @@ class Zuccezz(customtkinter.CTkFrame):
         
         self.ztatuz = customtkinter.CTkLabel(self,text="Error contact a ztaff")
         self.ztatuz.grid(row=0,column=0,padx=20, pady=20, sticky="nsew")
-        
+        self.mone = customtkinter.CTkLabel(self)
+        self.mone.grid(row=1,column=2,padx=20, pady=20, sticky="w")
+        self.mone1 = customtkinter.CTkLabel(self,text="Your Balance")
+        self.mone1.grid(row=0,column=2,padx=20, pady=20, sticky="w")
         
 
 
 
         self.button = customtkinter.CTkButton(self, text="Zubmit",
-                                           command=lambda: controller.show_frame(StartPage,"PageOne"))
+                                           command=lambda: controller.show_frame(StartPage,"Tranzaction"))
         self.button.grid(row=3, column=0, padx=20, pady=20, sticky="sew",columnspan=3)
-        label1 = customtkinter.CTkLabel(self, text="Depozit")
-        label1.grid(row=0,column = 0 ,pady=10, padx=10,sticky="w")
+        self.label1 = customtkinter.CTkLabel(self, text="Depozit")
+        self.label1.grid(row=0,column = 0 ,pady=10, padx=10,sticky="w")
         self.depozit = customtkinter.CTkTextbox(self,height=5, corner_radius=10)
         self.depozit.grid(row=0,column=1,sticky="ew")
         self.withdraw = customtkinter.CTkTextbox(self,height=5, corner_radius=10)
