@@ -10,5 +10,5 @@ Deposit cash,withdraw cash, Get a loan.
 
 Techstack:
 Python
-Tkinter
+Tkinter(cuztomTkinter Modern UI framework)
 sqlalchemy
